@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resumo Pós-Aula — Davi — CZK English</title>
+
+  <style>
+    :root{
+      --page-bg: #f4f7fa;
+      --card-bg: #fff;
+      --accent: #2f86e6;
+      --accent-dark: #1f6fd1;
+      --green: #36b37e;
+      --muted: #6b7280;
+      --border: #e6eef8;
+      --box-radius: 12px;
+      --card-width: 720px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      padding:0;
+      background:var(--page-bg);
+      font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:48px 20px;
+    }
+
+    .card{
+      width:100%;
+      max-width:var(--card-width);
+      background:var(--card-bg);
+      border-radius:18px;
+      padding:28px;
+      box-shadow:0 6px 22px rgba(33,47,60,0.06);
+      border:1px solid rgba(15,33,64,0.03);
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:8px;
+    }
+
+    .badge{
+      background:linear-gradient(180deg,#fff,#f2fbff);
+      border:1px solid var(--border);
+      padding:8px 12px;
+      border-radius:999px;
+      color:var(--accent);
+      font-weight:700;
+      font-size:0.85rem;
+    }
+
+    h1{
+      margin:0;
+      font-size:1.3rem;
+      color:#0f1724;
+    }
+
+    .meta{
+      color:var(--muted);
+      font-size:0.92rem;
+      margin-top:6px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 6px 14px rgba(47,134,230,0.12);
+    }
+
+    .btn.secondary{
+      background:#fff;
+      color:var(--accent);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+
+    main{margin-top:18px;}
+    section{margin-top:18px;}
+
+    .panel{
+      background:#fbfdff;
+      border-radius:12px;
+      padding:16px;
+      border:1px solid var(--border);
+    }
+
+    .outline-card{
+      border-radius:10px;
+      border:1px solid var(--border);
+      padding:16px;
+      background:#fff;
+    }
+
+    /* Vocabulary boxes */
+    .vocab-grid{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .vocab{
+      flex:1;
+      min-width:220px;
+      border-radius:10px;
+      padding:14px;
+      border:2px solid #dfeefe;
+      background:#fff;
+    }
+
+    .vocab.green{
+      border-color:#c9f3dc;
+      background:#f5fff6;
+    }
+
+    .vocab h3{
+      margin:0;
+      font-size:1rem;
+      color:#154360;
+    }
+
+    .vocab p{
+      margin:8px 0 0 0;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* Transcrição / gravação buttons */
+    .media-row{
+      display:flex;
+      gap:14px;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+
+    .media-btn{
+      background:#fff;
+      border:1px solid var(--border);
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      color:var(--accent);
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      min-width:200px;
+      justify-content:center;
+    }
+
+    /* Homework box */
+    .homework{
+      background:#f3fff6;
+      border:1px solid #d7f5df;
+      border-radius:10px;
+      padding:14px;
+      margin-top:10px;
+    }
+
+    /* ===== TALK TIME – TABELA RETANGULAR ===== */
+    .speaking{
+      margin-top:18px;
+      padding:16px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#ffffff,#fbfdff);
+      border:1px solid var(--border);
+      max-width:640px;
+    }
+
+    .speaking h2{
+      margin:0 0 10px 0;
+      font-size:1.05rem;
+      color:#0f1724;
+    }
+
+    .talk-table{
+      width:100%;
+      border-collapse:collapse;
+      border-radius:10px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid #e1e9f5;
+      font-size:0.9rem;
+    }
+
+    .talk-table th,
+    .talk-table td{
+      padding:8px 10px;
+      text-align:left;
+    }
+
+    .talk-table th{
+      background:#eef4ff;
+      color:#1b3556;
+      font-weight:700;
+      border-bottom:1px solid #dde6fa;
+    }
+
+    .row-teacher{
+      background:#e7f2ff; /* azul clarinho */
+    }
+
+    .row-student{
+      background:#e8f7ef; /* verde clarinho */
+    }
+
+    .talk-label{
+      font-weight:700;
+    }
+
+    .talk-percent{
+      font-weight:700;
+      color:#0f1724;
+    }
+
+    .talk-time{
+      color:var(--muted);
+    }
+
+    footer{
+      margin-top:20px;
+      color:var(--muted);
+      font-size:0.9rem;
+      text-align:center;
+    }
+
+    /* responsive */
+    @media (max-width:720px){
+      .card{padding:18px;border-radius:14px;}
+      .vocab-grid{flex-direction:column;}
+      .media-row{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <article class="card" role="main">
+      <header>
+        <div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <span class="badge">PÓS-AULA</span>
+            <h1>Profissões no singular/plural + Verb to be (am/is/are)</h1>
+          </div>
+          <div class="meta" style="margin-top:8px;">
+            <strong>Professor:</strong> César &nbsp;•&nbsp;
+            <strong>Aluno:</strong> Davi &nbsp;•&nbsp;
+            <strong>Data:</strong> 10/02/2026
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn" href="#" onclick="window.print();return false;">Imprimir / Salvar PDF</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="panel">
+          <p style="margin:0;font-weight:600;color:#08325a;">
+            Revisão de <strong>am / is / are</strong>, perguntas e negativas, e prática de <strong>profissões</strong> no singular/plural (com atenção a pronúncia do <strong>-s</strong>, pontuação e letra maiúscula).
+          </p>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Resumo da Aula</h2>
+          <div class="outline-card">
+            <p style="margin:0 0 8px 0;">
+              Começamos com um treino de <strong>listening e pronúncia</strong> (estilo “ouvir e repetir”), usando palavras do vocabulário do dia.
+              A ideia foi aproximar sua pronúncia do áudio e identificar quais palavras você reconhece mais fácil quando <strong>vê a imagem</strong> (memória visual).
+              Um exemplo importante foi <strong>trunk</strong> (que você lembrou melhor ao ver a imagem), e revisamos o significado correto.
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Depois, revisamos o <strong>verb to be</strong>: <strong>am</strong> (I), <strong>is</strong> (he/she/it) e <strong>are</strong> (you/we/they),
+              além de <strong>negação</strong> e <strong>contrações</strong> (ex.: <em>We are not → We aren’t</em>).
+              Em seguida, conectamos isso ao tema principal da aula: <strong>profissões no singular e no plural</strong> (ex.: <em>a doctor</em> / <em>doctors</em>),
+              reforçando que <strong>tudo precisa combinar</strong> (pronome + verbo + plural/singular).
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Também vimos que nem todo plural em inglês é só com <strong>-s</strong>. Falamos de alguns <strong>plurais irregulares</strong>:
+              <em>tooth → teeth</em>, <em>foot → feet</em>, <em>wife → wives</em>, <em>wolf → wolves</em>.
+              Na parte final, você praticou um exercício mais completo: <strong>olhar a imagem, fazer a pergunta e responder</strong>,
+              prestando atenção em <strong>pontuação</strong> (vírgula depois de <em>Yes/No</em>), <strong>espaço após ponto</strong> e <strong>letra maiúscula</strong> no início de frase.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Key Vocabulary</h2>
+          <div class="vocab-grid">
+            <div class="vocab">
+              <h3>Pilot</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) piloto</em><br>
+                <small>She is a pilot.</small>
+              </p>
+            </div>
+            <div class="vocab green">
+              <h3>Teeth</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) dentes (plural de “tooth”)</em><br>
+                <small>I have white teeth.</small>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- NOVOS TÓPICOS: VOCABULÁRIO DA AULA, FRASES MODELO, CORREÇÕES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Vocabulário da aula</h2>
+          <div class="outline-card">
+            <h3 style="margin-top:0;">Profissões (singular / plural)</h3>
+            <ul>
+              <li><strong>pilot / pilots</strong> – piloto(s)</li>
+              <li><strong>photographer / photographers</strong> – fotógrafo(a)(s)</li>
+              <li><strong>doctor / doctors</strong> – médico(s)</li>
+              <li><strong>engineer / engineers</strong> – engenheiro(s)</li>
+              <li><strong>musician / musicians</strong> – músico(s)</li>
+              <li><strong>singer / singers</strong> – cantor(es) / cantora(s)</li>
+              <li><strong>soccer player / soccer players</strong> – jogador(es) de futebol</li>
+              <li><strong>athlete / athletes</strong> – atleta(s)</li>
+              <li><strong>flight attendant</strong> – comissário(a) de bordo</li>
+            </ul>
+
+            <h3>Verb to be + estrutura (revisão)</h3>
+            <ul>
+              <li><strong>am / is / are</strong> – formas do verbo “ser/estar” (I / he-she-it / you-we-they)</li>
+              <li><strong>negative</strong> – negação (ex.: <em>They are not…</em>)</li>
+              <li><strong>contractions</strong> – contrações (ex.: <em>aren’t</em>, <em>isn’t</em>)</li>
+              <li><strong>questions</strong> – perguntas (ex.: <em>Are they…?</em>)</li>
+              <li><strong>singular / plural</strong> – singular / plural</li>
+            </ul>
+
+            <h3>Plurais irregulares (exemplos vistos)</h3>
+            <ul>
+              <li><strong>tooth → teeth</strong> – dente → dentes</li>
+              <li><strong>foot → feet</strong> – pé → pés</li>
+              <li><strong>wife → wives</strong> – esposa → esposas</li>
+              <li><strong>wolf → wolves</strong> – lobo → lobos</li>
+            </ul>
+
+            <h3>Vocabulário do warm-up (reconhecimento por áudio/imagem)</h3>
+            <ul>
+              <li><strong>trunk</strong> – porta-malas (também pode ser “tromba”, dependendo do contexto)</li>
+              <li><strong>goggles</strong> – óculos de proteção / óculos de natação</li>
+              <li><strong>binder</strong> – fichário</li>
+              <li><strong>raisins</strong> – uva passa</li>
+              <li><strong>bike path</strong> – ciclovia</li>
+              <li><strong>nut</strong> – noz / castanha</li>
+              <li><strong>scarf</strong> – cachecol</li>
+              <li><strong>scarecrow</strong> – espantalho</li>
+              <li><strong>rabbit</strong> – coelho</li>
+              <li><strong>stained glass windows</strong> – vitrais</li>
+              <li><strong>hammer</strong> – martelo</li>
+              <li><strong>belt</strong> – cinto</li>
+              <li><strong>firecracker</strong> – bombinha / rojão</li>
+              <li><strong>stocking</strong> – meia (tipo “meia-calça” / meia longa, dependendo do contexto)</li>
+              <li><strong>skateboard</strong> – skate</li>
+              <li><strong>welder</strong> – soldador(a)</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Frases modelo da aula</h2>
+          <div class="outline-card">
+            <ul>
+              <li>We are doctors.</li>
+              <li>We are not doctors. / We aren’t doctors.</li>
+              <li>Is Hannah an athlete?</li>
+              <li>We are photographers.</li>
+              <li>They are not musicians.</li>
+              <li>Are they singers?</li>
+              <li>She is a pilot.</li>
+              <li>Are you a teacher?</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ✅ NOVA SEÇÃO FIXA: CORREÇÕES IMPORTANTES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Correções importantes</h2>
+          <div class="outline-card">
+            <ul>
+              <li><strong>Concordância no plural:</strong> <em>They are musicians</em> ✅ (não <em>They are musician</em> ❌).</li>
+              <li><strong>“Is you” não existe:</strong> <em>Are you…?</em> ✅ (não <em>Is you…?</em> ❌).</li>
+              <li><strong>Artigo “a/an” só no singular:</strong> <em>a doctor</em> ✅ / <em>doctors</em> ✅ (não usar <em>a</em> no plural).</li>
+              <li><strong>Pronúncia do -s no final:</strong> em plurais como <em>photographers</em>, o <strong>-s</strong> precisa aparecer, senão a frase “não combina”.</li>
+              <li><strong>Letra maiúscula:</strong> início de frase e depois do ponto final (ex.: <em>Yes,</em> … / depois de <em>.</em> começa com maiúscula).</li>
+              <li><strong>Pontuação:</strong> depois de <em>Yes</em> ou <em>No</em>, usar vírgula e espaço (padrão do exercício).</li>
+              <li><strong>AI em maiúsculo:</strong> quando a palavra é “AI” sozinha (minúsculo só se estiver no meio de outra palavra).</li>
+              <li><strong>Vocabulário:</strong> <em>raisins</em> = uva passa ✅ (não “ameixa” ❌).</li>
+              <li><strong>Pronúncia:</strong> <em>goggles</em> ✅ (atenção para não confundir com outras palavras parecidas).</li>
+              <li><strong>Plural irregular:</strong> <em>tooth → teeth</em> ✅ (não <em>tooths</em> ❌) e <em>wife → wives</em> ✅ (não <em>wifes</em> ❌).</li>
+            </ul>
+          </div>
+        </section>
+        <!-- ✅ FIM DA NOVA SEÇÃO -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Transcrição &amp; Gravação</h2>
+          <div class="media-row">
+            <!-- Transcrição sem link (apenas botão) -->
+            <a class="media-btn" href="#" role="button">📄 Acessar transcrição</a>
+
+            <!-- Vídeo da aula com o link que você mandou -->
+            <a
+              class="media-btn"
+              href="https://youtu.be/JZ5O3KyHz7E"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="button"
+              style="background:linear-gradient(180deg,#1f6fd1,#2f86e6);color:#fff;border:none;min-width:260px;"
+            >
+              🎥 Assistir gravação (acesso privado)
+            </a>
+          </div>
+        </section>
+
+        <!-- ===== TABELA DE DISTRIBUIÇÃO DE FALA ===== -->
+        <section class="speaking" aria-label="Distribuição de fala">
+          <h2>Tempo de Fala (Talk Time)</h2>
+          <table class="talk-table">
+            <thead>
+              <tr>
+                <th>Quem falou</th>
+                <th>Porcentagem</th>
+                <th>Duração aproximada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-teacher">
+                <td><span class="talk-label">César (Professor)</span></td>
+                <td><span class="talk-percent">70%</span></td>
+                <td class="talk-time">~42 minutos</td>
+              </tr>
+              <tr class="row-student">
+                <td><span class="talk-label">Davi</span></td>
+                <td><span class="talk-percent">30%</span></td>
+                <td class="talk-time">~18 minutos</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <!-- ===== FIM TABELA ===== -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Homework</h2>
+          <div class="homework">
+            <p style="margin:0 0 8px 0;">
+              📌 <strong>Lição de casa (como combinado em aula):</strong>
+            </p>
+            <ul style="margin:0 0 6px 18px;padding:0;font-size:0.94rem;color:var(--muted);">
+              <li>Ler este pós-aula <strong>2 a 3x na semana</strong>.</li>
+              <li>Fazer a revisão no Baamboozle: <strong>3342048</strong>.</li>
+              <li><strong>Escrever em inglês no seu caderno</strong> (traduza as frases abaixo):</li>
+              <li>Eu sou piloto.</li>
+              <li>Eles são pilotos.</li>
+              <li>Ela é fotógrafa.</li>
+              <li>Nós somos fotógrafos.</li>
+              <li>Ele é médico.</li>
+              <li>Elas são médicas.</li>
+              <li>Você é professor?</li>
+              <li>Vocês são professores?</li>
+              <li>Meu pai é engenheiro.</li>
+              <li>Meus pais são engenheiros.</li>
+              <li>Minha irmã é enfermeira.</li>
+              <li>Minhas irmãs são enfermeiras.</li>
+              <li>O homem é policial.</li>
+              <li>Os homens são policiais.</li>
+              <li>Essas mulheres são atrizes.</li>
+            </ul>
+            <p style="margin:6px 0 0 0;">
+              <!-- Botão de tarefa de casa com link -->
+              <a
+                href="https://www.baamboozle.com/game/3342048"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn secondary"
+                style="padding:8px 12px;border-radius:8px;font-weight:700;"
+              >
+                📝 Abrir tarefa de casa (Baamboozle)
+              </a>
+            </p>
+          </div>
+
+          <div style="margin-top:14px;">
+            <a class="btn" href="https://wa.me" style="background:#25D366;border-radius:10px;box-shadow:none;">
+              💬 Falar comigo no WhatsApp
+            </a>
+          </div>
+        </section>
+
+      </main>
+
+      <footer>
+        <p style="margin:18px 0 0 0;color:var(--muted);font-size:0.9rem;">
+          © 2025 CZK English • Este conteúdo é exclusivo para fins educacionais. • Suporte: czkenglish@gmail.com
+        </p>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>
